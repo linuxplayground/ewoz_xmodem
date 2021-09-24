@@ -16,13 +16,13 @@ CRCCHECK    = $30
 IRQ_LOC     = $31           ; *IRC Location
 
 ; xmodem
-crc		    =	$38		; CRC lo byte  (two byte variable)
-crch	    =	$39		; CRC hi byte  
+crc		    = $38		; CRC lo byte  (two byte variable)
+crch	    = $39		; CRC hi byte  
 
-ptr		    =	$3a		; data pointer (two byte variable)
-ptrh    	=	$3b		;   "    "
+ptr		    = $3a		; data pointer (two byte variable)
+ptrh    	= $3b		;   "    "
 
-blkno	    =	$3c		; block number 
-retry   	=	$3d		; retry counter 
-retry2	    =	$3e		; 2nd counter
-bflag	    =	$3f		; block flag 
+blkno	    = $3c		; block number 
+retry   	= $3d		; retry counter 
+retry2	    = $3e		; 2nd counter
+bflag	    = $3f		; block flag 

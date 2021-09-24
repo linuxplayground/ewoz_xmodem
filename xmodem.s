@@ -263,10 +263,10 @@ GoodMsg:
 ; You would call the ACIA_Init prior to running the xmodem transfer
 ; routine.
 ;
-ACIA_Data	    =	$4000		; Adjust these addresses to point 
-ACIA_Status	    =	$4001		; to YOUR 6551!
-ACIA_Command	=	$4002		;
-ACIA_Control	=	$4003		;
+ACIA_Data	    =	$8400		; Adjust these addresses to point 
+ACIA_Status	    =	$8401		; to YOUR 6551!
+ACIA_Command	=	$8402		;
+ACIA_Control	=	$8403		;
 
 ;
 ; input chr from ACIA (no waiting)

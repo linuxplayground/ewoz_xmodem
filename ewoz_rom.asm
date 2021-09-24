@@ -8,7 +8,7 @@
 ; START @ $a000
             * = $a000
 
-ACIA        = $4000
+ACIA        = $8400
 ACIA_CTRL   = ACIA+3
 ACIA_CMD    = ACIA+2
 ACIA_SR     = ACIA+1
