@@ -38,7 +38,8 @@ reset:
 	sta PCR			; Set CA1 to trigger on negative transition (going low)
 
 	jsr lcd_init
-
+	jsr lcd_cursor_off
+	
 	lda #0			; Initialize the counter to zero
 	sta counter
 	sta counter + 1
@@ -141,25 +142,30 @@ char_loop:
 
 
 irq:
+	phx
+	phy
 	pha
-	txa
-	pha
-	tya
-	pha
-
+	
 	inc counter
 	bne exit_irq
 	inc counter + 1
 
 exit_irq:
 
+	ldy #$ff
+wl1:
+	ldx #$ff
+wl2:
+	dex
+	bne wl2
+	dey
+	bne wl1
+
 	bit PORTA
 
 	pla
-	tay
-	pla
-	tax
-	pla
+	ply
+	plx
 
 	rti
 

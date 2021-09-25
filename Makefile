@@ -6,14 +6,16 @@ hello-world:
 	/usr/bin/printf '\x00\x10' | cat - hello.o > hello.bin
 
 irq:
-	vasm6502_oldstyle -Fbin -dotdir -o irq.o irq.asm && \
-	/usr/bin/printf '\x00\x10' | cat - irq.o > irq.bin
+	vasm6502_oldstyle -Fbin -dotdir -o irq.o irq.asm
 
 i2c-lcd:
 	vasm6502_oldstyle -Fbin -dotdir -Iinclude -c02 -o i2c-lcd.o -L i2c-lcd.lst i2c_lcd_test.s
 
 i2c-lcd-irq:
 	vasm6502_oldstyle -Fbin -dotdir -Iinclude -c02 -o i2c-irq.o -L i2c-irq.lst i2c-irq.s
+
+spi:
+	vasm6502_oldstyle -Fbin -dotdir -Iinclude -c02 -o spi.o spi_matrix.s
 
 clean:
 	rm -v irq.o hello.o irq.bin hello.bin ewoz.bin
