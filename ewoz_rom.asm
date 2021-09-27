@@ -1,10 +1,10 @@
-            .include "zp.inc"
-            .include "xmodem.s"
-
+            .include "zp.s"
 ; EWOZ Extended Woz Monitor.
 ; Just a few mods to the original monitor.
             * = $8000
-            NOP
+            .include "liblcd.s"
+            .include "libspiled.s"
+            .include "xmodem.s"
 ; START @ $a000
             * = $a000
 

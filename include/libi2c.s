@@ -1,15 +1,10 @@
 
-ZP_X            = $10
-ZP_Y            = $11
-ZP_A            = $12
-ZP_I2C_DATA     = $13
-
 I2C_DATABIT     = %00000010
 I2C_CLOCKBIT    = %00000001
 I2C_DDR         = $9002     ; use port b
 I2C_PORT        = $9000     ; use port b
 
-    .org $3000
+    .org $B400
 
 ;------------------------------------------------------------------------------
     .macro i2c_data_up
@@ -235,34 +230,3 @@ I2C_SendAddr:
     rol A                   ; Rotates address 1 bit and puts read/write flag in A
     jmp I2C_SendByte        ; Sends address and returns
 
-;------------------------------------------------------------------------------
-I2C_Delay_ms:
-;------------------------------------------------------------------------------
-; Number of milliseconds to delay in Y
-; If Y = 0; then minimum time is 17 cycles 
-;------------------------------------------------------------------------------
-MSCNT = 198
-    cpy #0      
-    beq .exit
-    nop
-    cpy #1
-    bne .delay_a
-    jmp .last_1
-.delay_a:
-    dey
-.delay_0:
-    ldx #MSCNT
-.delay_1:
-    dex
-    bne .delay_1
-    nop
-    nop
-    dey
-    bne .delay_0
-.last_1:
-    ldx #MSCNT - 3
-.delay_2:
-    dex
-    bne .delay_2
-.exit:
-    rts

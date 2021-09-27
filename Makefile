@@ -1,5 +1,13 @@
 rom:
-	vasm6502_oldstyle -Fbin -dotdir -L ewoz.lst -ignore-mult-inc -o ewoz.bin ewoz_rom.asm
+	vasm6502_oldstyle \
+		-Fbin \
+		-dotdir \
+		-c02 \
+		-Iinclude \
+		-L ewoz.lst -Llo \
+		-ignore-mult-inc \
+		-o ewoz.bin \
+		ewoz_rom.asm
 
 hello-world:
 	vasm6502_oldstyle -Fbin -dotdir -o hello.o hello_world.asm && \
@@ -18,7 +26,7 @@ spi:
 	vasm6502_oldstyle -Fbin -dotdir -Iinclude -c02 -o spi.o spi_matrix.s
 
 clean:
-	rm -v irq.o hello.o irq.bin hello.bin ewoz.bin
+	rm -v *.o *.lst *.bin
 
 install-rom:
 	minipro -p AT28C256 -w ewoz.bin

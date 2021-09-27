@@ -1,8 +1,6 @@
     .include "libi2c.s"
-
-LCD_TEMP     = $14
-LCD_4BIT_BUF = $15
-LCD_STRPTR   = $16        ; 2 bytes
+    .include "util.s"
+    .include "zp.s"
 
 LCD_RS = %00000001
 LCD_RW = %00000010
@@ -11,7 +9,7 @@ LCD_BT = %00001000
 
 ADDRESS = $27           ; i2c address of LCD display
 
-    .org $2000
+    .org $B300
 ; ---------------------------------------------
 ; Send a string of text to the LCD Display
 ; A = msg low byte
@@ -49,7 +47,7 @@ lcd_init:
     jsr send_lcd_write_8bit
 
     ldy #100
-    jsr I2C_Delay_ms    ; 5 millisecond delay after every operation
+    jsr Delay_ms                ; 5 millisecond delay after every operation
 
     lda #%11000100              ; Function set 8 bits long
     jsr send_lcd_write_8bit
@@ -126,7 +124,7 @@ send_lcd_write_4bit_instruction:
     jsr send_lcd_write_8bit
     ; low nibble done.
     ldy #1
-    jsr I2C_Delay_ms
+    jsr Delay_ms
     rts
 
 ; ---------------------------------------------
@@ -156,5 +154,5 @@ send_lcd_write_4bit_char:
     jsr send_lcd_write_8bit
     ; low nibble done.
     ldy #1
-    jsr I2C_Delay_ms
+    jsr Delay_ms
     rts

@@ -1,5 +1,4 @@
-    .include "zp.inc"
-
+    .include "zp.s"
 ;
 ;
 ; non-zero page variables and buffers
