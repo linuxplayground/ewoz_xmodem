@@ -25,6 +25,9 @@ i2c-lcd-irq:
 spi:
 	vasm6502_oldstyle -Fbin -dotdir -Iinclude -c02 -o spi.o spi_matrix.s
 
+dht11:
+	vasm6502_oldstyle -Fbin -dotdir -Iinclude -c02 -o dht11.o dht11.s
+
 clean:
 	rm -v *.o *.lst *.bin
 

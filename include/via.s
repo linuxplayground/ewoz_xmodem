@@ -1,0 +1,15 @@
+PORTB 	= $9000
+PORTA   = $9001
+DDRB  	= $9002
+DDRA    = $9003
+T1CL    = $9004
+T1CH    = $9005
+T1LL    = $9006
+T1LH    = $9007
+T2CL    = $9008
+T2CH    = $9009
+SR      = $900a
+ACR     = $900b
+PCR     = $900c
+IFR     = $900d
+IER     = $900e
