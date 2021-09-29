@@ -2,6 +2,10 @@
 ; EWOZ Extended Woz Monitor.
 ; Just a few mods to the original monitor.
             * = $8000
+            nop             ; dirty hack to fill up space on the ROM chip.
+                            ; all these includes are carefully mapped with
+                            ; correct starting .org addresses so as not to
+                            ; overflow and cause vasm to complain.
             .include "liblcd.s"
             .include "libspiled.s"
             .include "xmodem.s"
