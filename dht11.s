@@ -14,8 +14,6 @@ ZP_T01      = $47
 
 ZP_BUFPTR   = $48
 
-
-IFR5_MASK = %00100000
 DATA_BIT  = %10000000   ; PB7
 
 value 	= $2000		; 2 bytes
