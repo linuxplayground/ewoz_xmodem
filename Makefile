@@ -28,6 +28,9 @@ spi:
 dht11:
 	vasm6502_oldstyle -Fbin -dotdir -Iinclude -c02 -o dht11.o dht11.s
 
+morse:
+	vasm6502_oldstyle -Fbin -dotdir -Iinclude -c02 -o morse.o morse_xmt.asm
+	
 clean:
 	rm -v *.o *.lst *.bin
 

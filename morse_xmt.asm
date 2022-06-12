@@ -2,87 +2,111 @@
     .include "zp.s"
     .include "romsymbols.inc"
 
-PIN = %00000010
+PIN = %10000000
 STRPTR  = $50
 STRPTRH = $51
 
-    ;
-    ; Macro to turn on buzzer pin
-    ;
-    .macro beepon
-        pha
-        lda PORTB
-        ora #PIN
-        sta PORTB
-        pla
-    .endmacro
-
-    ;
-    ; Macro to turn off buzzer pin
-    ;
-    .macro beepoff
-        pha
-        lda PORTB
-        eor #PIN
-        sta PORTB
-        pla
-    .endmacro
-
-
     .org $1000
 
+    stz $400
+    stz $401
+    stz $402
+    stz $403
+    stz $404
+    stz $405
+    
+    lda #$ff
+    sta DDRB
     ; generate a single beep long or short.
     ; uses an active buzzer to avoid having
     ; to calculate notes
 
+    lda #<message
+    sta STRPTR
+    lda #>message
+    sta STRPTR+1
 
+    jsr string
+    rts
 
 ; Routines
+
+beepon:
+    pha
+    lda #PIN
+    sta PORTB
+    pla
+    rts
+
+beepoff:
+    pha
+    lda #0
+    sta PORTB
+    pla
+    rts
+
 dot:
     phy
-    beepon
-    ldy #$50
-    jsr Delay_ms
-    beepoff
+    phx
+    jsr beepon
+    ldx #3
+    jsr gap
+    jsr beepoff
+    plx
     ply
     rts
 
 dash:
     phy
-    beepon
-    ldy #$150
-    jsr Delay_ms
-    beepoff
+    phx
+    jsr beepon
+    ldx #9
+    jsr gap
+    jsr beepoff
     ply
     rts
 
 igap:               ; gap between dots and dashes within a character
     phy
-    ldy #$50
-    jsr Delay_ms
+    phx
+    ldx #3
+    jsr gap
+    plx
     ply
     rts
 
 sgap:               ; gap between characters within a word
     phy
-    ldy #$150
-    jsr Delay_ms
+    phx
+    ldx #9
+    jsr gap
+    plx
     ply
     rts
 
 lgap:               ; gap between words
     phy
-    ldy #$350
-    jsr Delay_ms
+    phx
+    ldx #21         
+    jsr gap
+    plx
     ply
     rts
 
+gap:
+    phx
+    ldy #50
+    jsr Delay_ms
+    plx
+    dex
+    bne gap
+    rts
 ;
 ; Sends a character by looking up it's pattern in the charmap
 ; A contains ASCII value to send.
 ; 
 char:
-    sbc #65                ; Get the zero based index of the char
+    sbc #$41                ; Get the zero based index of the char
     tax
     ldy #0
 .charloop:
@@ -102,22 +126,24 @@ char:
     inx
     iny
     cmp #5                  ; maximum 5 elements
-    bne charloop
+    bne .charloop
     rts
 
 string:
     ldy #0
 .stringloop:
     lda (STRPTR),y
+    beq .exit
     cmp #" "
     beq .is_space
     jsr char
     jmp .continue
 .is_space:
-    jsr lgap
+    jsr sgap
 .continue:
     iny
-    bne .stringloop
+    jmp .stringloop
+.exit
     rts
 
 ; charmap - maps letters to a code.
