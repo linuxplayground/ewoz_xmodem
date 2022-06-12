@@ -1,3 +1,10 @@
+; libspiled
+DECODE_MODE         = $09                       
+INTENSITY           = $0a                        
+SCAN_LIMIT          = $0b                        
+SHUTDOWN            = $0c                        
+DISPLAY_TEST        = $0f
+
 ; libi2c
 ZP_X            = $10
 ZP_Y            = $11

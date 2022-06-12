@@ -1,12 +1,6 @@
     .include 'romsymbols.inc'
     .include 'zp.s'
 
-DECODE_MODE         = $09                       
-INTENSITY           = $0a                        
-SCAN_LIMIT          = $0b                        
-SHUTDOWN            = $0c                        
-DISPLAY_TEST        = $0f
-
     .org $1000
 
 reset:

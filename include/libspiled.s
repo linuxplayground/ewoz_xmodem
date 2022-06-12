@@ -1,11 +1,5 @@
     .include "libspi.s"
 
-DECODE_MODE         = $09                       
-INTENSITY           = $0a                        
-SCAN_LIMIT          = $0b                        
-SHUTDOWN            = $0c                        
-DISPLAY_TEST        = $0f
-
     .org $B100
 led_init:
     lda #%00000111  ; nc/nc/nc/nc/nc/mosi/cs/sck
