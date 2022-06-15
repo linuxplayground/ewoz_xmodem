@@ -8,7 +8,6 @@
                             ; overflow and cause vasm to complain.
             .include "liblcd.s"
             .include "libspiled.s"
-            .include "xmodem.s"
 ; START @ $a000
             * = $a000
 
@@ -89,9 +88,7 @@ NEXTITEM:   LDA IN,Y        ;Get character.
             CMP #$D2        ;"R"?
             BEQ RUN         ;Yes, run user program.
             CMP #$CC        ;* "L"?
-            BEQ LOADINT     ;* Yes, Load Intel Code.
-            CMP #$D8        ;"X"?
-            BEQ RUNXMODEM   ;* Yes, Run Xmodem.            
+            BEQ LOADINT     ;* Yes, Load Intel Code.           
             STX L           ;$00->L.
             STX H           ; and H.
             STY YSAV        ;Save Y for comparison.
@@ -119,14 +116,12 @@ NOTHEX:     CPY YSAV        ;Check if L, H empty (no hex digits).
             JMP ESCAPE      ;Yes, generate ESC sequence.
 
 RUN:        JSR ACTRUN      ;* JSR to the Address we want to run.
-            JMP SOFTRESET ;* When returned for the program, reset EWOZ.
+            JMP SOFTRESET   ;* When returned for the program, reset EWOZ.
 ACTRUN:     JMP (XAML)      ;Run at current XAM index.
 
 LOADINT:    JSR LOADINTEL   ;* Load the Intel code.
-            JMP SOFTRESET ;* When returned from the program, reset EWOZ.
+            JMP SOFTRESET   ;* When returned from the program, reset EWOZ.
 
-RUNXMODEM:  JSR XModem      ; Run the Xmodem receive program.
-            JMP SOFTRESET   ; When returned from Xmodem, reset EWOZ.
 NOESCAPE:   BIT MODE        ;Test MODE byte.
             BVC NOTSTOR     ;B6=0 for STOR, 1 for XAM and BLOCK XAM
             LDA L           ;LSD's of hex data.
@@ -320,7 +315,7 @@ GETCHAR:    LDA ACIA_SR       ; See if we got an incoming char
 
 MSG1:     
             .BYTE "Welcome to EWOZ 1.0.",$8D
-            .BYTE "L = Load Intel Hex, X = Start Xmodem",0
+            .BYTE "L = Load Intel Hex",0
 MSG2:       .BYTE "Start Intel Hex code Transfer.",0
 MSG3:       .BYTE "Intel Hex Imported OK.",0
 MSG4:       .BYTE "Intel Hex Imported with checksum error.",0

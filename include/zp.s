@@ -1,9 +1,9 @@
 ; libspiled
-DECODE_MODE         = $09                       
-INTENSITY           = $0a                        
-SCAN_LIMIT          = $0b                        
-SHUTDOWN            = $0c                        
-DISPLAY_TEST        = $0f
+DECODE_MODE     = $09                       
+INTENSITY       = $0a                        
+SCAN_LIMIT      = $0b                        
+SHUTDOWN        = $0c                        
+DISPLAY_TEST    = $0f
 
 ; libi2c
 ZP_X            = $10
@@ -34,13 +34,3 @@ CRC             = $2F
 CRCCHECK        = $30
 IRQ_LOC         = $31       ; *IRC Location
 IRQ_LOC_H       = $32       ; reserved
-    
-; xmodem    
-crc		        = $33		; CRC lo byte  (two byte variable)
-crch	        = $34		; CRC hi byte  
-ptr		        = $35		; data pointer (two byte variable)
-ptrh    	    = $36		;   "    " 
-blkno	        = $37		; block number 
-retry   	    = $38		; retry counter 
-retry2	        = $39		; 2nd counter
-bflag	        = $3a		; block flag 
