@@ -1,4 +1,5 @@
             .include "zp.s"
+            .include "via.s"
 ; EWOZ Extended Woz Monitor.
 ; Just a few mods to the original monitor.
             * = $8000
@@ -259,7 +260,7 @@ TESTCOUNT:  DEC   COUNTER    ; Count down.
             ADC CRC          ; Add CRC
             BEQ INTELLINE    ; Checksum OK.
             LDA #$01         ; Flag CRC error.
-            STA   CRCCHECK   ; Store it
+            STA CRCCHECK     ; Store it
             JMP INTELLINE    ; Process next line.
 
 INTELDONE:  LDA CRCCHECK     ; Test if everything is OK.
@@ -327,4 +328,3 @@ IRQ:
             .ORG $FFFC
             .WORD RESET
             .WORD IRQ
-

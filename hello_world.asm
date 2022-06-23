@@ -1,7 +1,7 @@
-PORTB = $6000                               ; VIA port B
-PORTA = $6001                               ; VIA port A
-DDRB = $6002                                ; Data Direction Register B
-DDRA = $6003                                ; Data Direction Register A
+PORTB = $8800                               ; VIA port B
+PORTA = $8801                               ; VIA port A
+DDRB = $8802                                ; Data Direction Register B
+DDRA = $8803                                ; Data Direction Register A
 
 E =  %10000000
 RW = %01000000
@@ -28,9 +28,7 @@ main:
     ldy #>message
     jsr write_to_screen                     ; Call subroutine to print the message
 
-loop:
-    jmp loop
-
+    rts
 ;
 ; clear_lcd
 ;
